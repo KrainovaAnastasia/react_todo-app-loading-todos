@@ -6,10 +6,6 @@ import { createTodo, getTodos, USER_ID } from './api/todos';
 import { Todo } from './types/Todo';
 
 export const App: React.FC = () => {
-  if (!USER_ID) {
-    return <UserWarning />;
-  }
-
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -36,6 +32,10 @@ export const App: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [error]);
+
+  if (!USER_ID) {
+    return <UserWarning />;
+  }
 
   const handleAddTodo = () => {
     if (!newTodoTitle.trim()) {
