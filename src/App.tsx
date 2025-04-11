@@ -7,6 +7,7 @@ import { Todo } from './types/Todo';
 import { Footer } from './components/Footer';
 import { TodoList } from './components/TodoList';
 import { Header } from './components/Header';
+import { Error as ErrorNotification } from './components/Error';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -17,6 +18,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     setError('');
+    setIsLoading(true);
 
     getTodos()
       .then(setTodos)
@@ -40,7 +42,9 @@ export const App: React.FC = () => {
     return <UserWarning />;
   }
 
-  const handleAddTodo = () => {
+  const handleAddTodo = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     if (!newTodoTitle.trim()) {
       setError('Title should not be empty');
 
@@ -86,18 +90,7 @@ export const App: React.FC = () => {
 
       {/* DON'T use conditional rendering to hide the notification */}
       {/* Add the 'hidden' class to hide the message smoothly */}
-      <div
-        data-cy="ErrorNotification"
-        className={`notification is-danger is-light has-text-weight-normal ${error ? '' : 'hidden'}`}
-      >
-        <button
-          data-cy="HideErrorButton"
-          type="button"
-          className="delete"
-          onClick={() => setError('')}
-        />
-        {error}
-      </div>
+      <ErrorNotification error={error} onClose={() => setError('')} />
     </div>
   );
 };

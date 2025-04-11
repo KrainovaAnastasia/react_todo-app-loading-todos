@@ -1,11 +1,13 @@
 import React from 'react';
 import { Todo } from '../types/Todo';
+import { TodoLoader } from './TodoLoader';
 
 type Props = {
   todo: Todo;
+  isLoading: boolean;
 };
 
-export const TodoItem: React.FC<Props> = ({ todo }) => {
+export const TodoItem: React.FC<Props> = ({ todo, isLoading }) => {
   return (
     <div data-cy="Todo" className={`todo ${todo.completed ? 'completed' : ''}`}>
       <label className="todo__status-label">
@@ -26,6 +28,7 @@ export const TodoItem: React.FC<Props> = ({ todo }) => {
       <button type="button" className="todo__remove" data-cy="TodoDelete">
         ×
       </button>
+      {isLoading && <TodoLoader />}
     </div>
   );
 };

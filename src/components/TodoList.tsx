@@ -2,7 +2,7 @@ import { Todo } from '../types/Todo';
 import { TodoItem } from './TodoItem';
 
 type Props = {
-  todos: Todo;
+  todos: Todo[];
   filter: 'all' | 'active' | 'completed';
 };
 
