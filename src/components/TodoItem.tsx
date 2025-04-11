@@ -28,7 +28,7 @@ export const TodoItem: React.FC<Props> = ({ todo, isLoading }) => {
       <button type="button" className="todo__remove" data-cy="TodoDelete">
         ×
       </button>
-      {isLoading && <TodoLoader />}
+      <TodoLoader isActive={isLoading} />
     </div>
   );
 };
